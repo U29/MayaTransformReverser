@@ -28,7 +28,7 @@ def testWindow():
     
     with LayoutManager(cmds.columnLayout(adj=True, rowSpacing=10)) as tabTestColumn2:
         with LayoutManager(cmds.rowLayout(numberOfColumns=4, columnAttach4=('left', 'left', 'left', 'left'), columnWidth4=(50, 50, 50, 50))):
-            cmds.button(label="＼(^o^)／Reverse／(^o^)＼")
+            cmds.button(label="＼(^o^)／Reverse／(^o^)＼", command='moxReverse()')
     cmds.tabLayout(tabTest, edit=2, tabLabel=(tabTestColumn2, "MoxRig"))
     
     cmds.showWindow()
@@ -57,14 +57,39 @@ def reverse():
         eachSelT = cmds.getAttr(eachSel + '.translate')[0]
         eachSelR = cmds.getAttr(eachSel + '.rotate')[0]
         eachSelS = cmds.getAttr(eachSel + '.scale')[0]
+        isLockedTx = cmds.getAttr(eachSel + '.tx', lock=True)
+        isLockedTy = cmds.getAttr(eachSel + '.ty', lock=True)
+        isLockedTz = cmds.getAttr(eachSel + '.tz', lock=True)
+        isLockedRx = cmds.getAttr(eachSel + '.rx', lock=True)
+        isLockedRy = cmds.getAttr(eachSel + '.ry', lock=True)
+        isLockedRz = cmds.getAttr(eachSel + '.rz', lock=True)
+        isLockedSx = cmds.getAttr(eachSel + '.sx', lock=True)
+        isLockedSy = cmds.getAttr(eachSel + '.sy', lock=True)
+        isLockedSz = cmds.getAttr(eachSel + '.sz', lock=True)
+        
         print eachSelT, eachSelR, eachSelS
         try:
             if 1:
-                cmds.setAttr(eachSel + '.translate', bToS(checkTx)*eachSelT[0], bToS(checkTy)*eachSelT[1], bToS(checkTz)*eachSelT[2])
+                if not isLockedTx:
+                    cmds.setAttr(eachSel + '.tx', bToS(checkTx)*eachSelT[0])
+                if not isLockedTy:
+                    cmds.setAttr(eachSel + '.ty', bToS(checkTy)*eachSelT[1])
+                if not isLockedTz:
+                    cmds.setAttr(eachSel + '.tz', bToS(checkTz)*eachSelT[2])
             if 1:
-                cmds.setAttr(eachSel + '.rotate', bToS(checkRx)*eachSelR[0], bToS(checkRy)*eachSelR[1], bToS(checkRz)*eachSelR[2])
-            if 0:
-                cmds.setAttr(eachSel + '.scale', bToS(checkSx)*eachSelS[0], bToS(checkSy)*eachSelS[1], bToS(checkSz)*eachSelS[2])
+                if not isLockedRx:
+                    cmds.setAttr(eachSel + '.rx', bToS(checkRx)*eachSelR[0])
+                if not isLockedRy:
+                    cmds.setAttr(eachSel + '.ry', bToS(checkRy)*eachSelR[1])
+                if not isLockedRz:
+                    cmds.setAttr(eachSel + '.rz', bToS(checkRz)*eachSelR[2])
+            if 1:
+                if not isLockedSx:
+                    cmds.setAttr(eachSel + '.rx', bToS(checkSx)*eachSelS[0])
+                if not isLockedSy:
+                    cmds.setAttr(eachSel + '.ry', bToS(checkSy)*eachSelS[1])
+                if not isLockedSz:
+                    cmds.setAttr(eachSel + '.rz', bToS(checkSz)*eachSelS[2])
         except:
             print "locked attributes didn't changed"            
 def bToS(checked):
@@ -72,3 +97,7 @@ def bToS(checked):
         return -1.0
     else:
         return 1.0
+        
+def moxReverse():
+    pass
+    
