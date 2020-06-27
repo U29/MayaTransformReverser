@@ -2,8 +2,6 @@
 import maya.cmds as cmds
 from maya.common.ui import LayoutManager
 
-scriptFolderPATH = cmds.internalVar(usd=True) + '/FukudenMirror/'
-
 def bToS(checked):
     if checked:
         return -1.0
@@ -152,24 +150,15 @@ def mirrorPose():
         elif eachObj == toeR:
             cmds.setAttr(eachObj + '.rotate', tempToeL_R[0], tempToeL_R[1], -tempToeL_R[2])
         
-def testWindow():
+def mainWindow():
     if cmds.window('ReverserWindow', ex=1):
         cmds.deleteUI('ReverserWindow')
-    windowName = cmds.window('ReverserWindow',title='Fukuden Mirror v0.01 Chika Edition')
+    windowName = cmds.window('ReverserWindow',title='Fukuden Mirror v0.01')
     tabTest = cmds.tabLayout(scrollable=False, innerMarginHeight=5, innerMarginWidth=1)
     
     with LayoutManager(cmds.columnLayout(adj=True, rowSpacing=10)) as tabTestColumn2:
         cmds.button(label="(^o MirrorPose o^)", command='FukudenMirror.mirrorPose()')
-        '''
-        cmds.text(label="-- Customize --")
-        with LayoutManager(cmds.rowLayout(numberOfColumns=2, columnAttach2=('left', 'left'), columnWidth2=(50, 50))):
-            cmds.text(label="sorry")
-            cmds.textField(w=500, tx="you cannot customization yet")
-        '''
-        with LayoutManager(cmds.rowLayout(numberOfColumns=2, columnAttach2=('left', 'left'), columnWidth2=(50, 50))):
-            cmds.image( w=300 , h=300 , image = scriptFolderPATH + "img/ah.jpg")
-            cmds.textScrollList('warning', append=['Sorry, you can only use the "MoxRig" now.', 'And you cannot mirror fingers'], w=300, h=300, fn='boldLabelFont')
-    cmds.tabLayout(tabTest, edit=1, tabLabel=(tabTestColumn2, "MirrorPose"))
+        cmds.tabLayout(tabTest, edit=1, tabLabel=(tabTestColumn2, "MirrorPose"))
 
     with LayoutManager(cmds.columnLayout(adj=True, rowSpacing=10)) as tabTestColumn:
         with LayoutManager(cmds.rowLayout(numberOfColumns=4, columnAttach4=('right', 'left', 'left', 'left'), columnWidth4=(50, 50, 50, 50))):
@@ -188,10 +177,9 @@ def testWindow():
             cmds.checkBox('checkSy',label="Y")
             cmds.checkBox('checkSz',label="Z")
         cmds.button(label="(-o-)Reverse(_o_)", command='FukudenMirror.reverse()')
-        cmds.image( w=300 , h=300 , image = scriptFolderPATH + "img/uh.jpeg" )
     cmds.tabLayout(tabTest, edit=2, tabLabel=(tabTestColumn, "ReversePSR"))
     
     cmds.showWindow()
 
 if __name__ == '__main__':
-    testWindow()
+    mainWindow()

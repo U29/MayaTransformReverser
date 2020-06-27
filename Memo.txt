@@ -1,0 +1,29 @@
+頭
+    -ry -rz
+胸（Spine1）
+    -ry -rz
+腰（Spine）
+    -ry -rz
+ルート（COG）
+    -tx  -ry -rz
+尻
+    -ry -rz
+
+
+
+互いにコピー
+
+手
+    -tx ty tz rx -ry -rz
+肘Upv
+    -tx ty -tz
+
+肩
+    rx -ry -rz
+
+膝Upv
+    -tx ty tz
+足
+    -tx ty tz rx -ry -rz
+つま先
+    rx ry -rz
